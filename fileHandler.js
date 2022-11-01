@@ -20,11 +20,24 @@ module.exports = class FileHandler {
         })
 
     }
-    write(fileUrl,cb) {
-this.check(fileUrl,(error)=>{
-if(error){}
- fs.createWriteStream(fileUrl,{encoding:"utf-8"},(data)=>{console.log(data);})
-})
+    write(fileUrl, data) {
+        this.check(fileUrl, (error) => {
+            if (error) {
+                fs.open(fileUrl, "w", (err) => {
+                    if (err) { console.log(err); return }
+                    else {
+                        const writable = fs.createWriteStream(fileUrl, {flags:"a", encoding: "utf-8" })
+                        writable.write(data)
+
+                    }
+                })
+            }
+            else {
+                const writable = fs.createWriteStream(fileUrl, { flags:"a",encoding: "utf-8" })
+                writable.write(data)
+
+            }
+        })
     }
 }
 
