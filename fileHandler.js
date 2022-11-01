@@ -4,9 +4,9 @@ const fs = require("fs")
 module.exports = class FileHandler {
     check(fileUrl, cb) {
         fs.access(fileUrl, fs.F_OK, (e) => {
-            if (e) { cb(e); return 123 }
+            if (e) { cb(e); return  }
             else {
-                this.EXISTS = true
+               
                 cb()
             }
 
