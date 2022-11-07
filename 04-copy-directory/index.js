@@ -9,14 +9,22 @@ function copy() {
     fs.mkdir(destinationPath, { recursive: true }, (err) => {
 
     });
+
+    
     fs.readdir(destinationPath, (err, files) => {
+     
+        if(!files.length){
+            console.log(files);
+            copy()
+        return}
         files.forEach(file => {
-            fs.unlink(path.join(__dirname, "files-copy", file), (err) => { })
+            fs.unlink(path.join(__dirname, "files-copy", file), (err) => {copy() })
         })
     })
 
+function copy(){
 
-    fs.readdir(pathFolder, (err, files) => {
+ fs.readdir(pathFolder, (err, files) => {
         if (err) { console.log(err); }
         files.forEach(file => {
             fs.copyFile(path.join(__dirname, "files", file), path.join(__dirname, "files-copy", file), (err) => {
@@ -25,5 +33,7 @@ function copy() {
                 }
             })
         })
-    })
+    })    
+}
+   
 }
