@@ -2,46 +2,6 @@ const path = require("path");
 const fsp = require('fs').promises;
 
 const fs = require("fs")
-class FileHandler {
-    check(fileUrl, cb) {
-        fs.access(fileUrl, (e) => {
-            if (e) { cb(e); return }
-            else {
-                cb()
-            }
-        })
-    }
-
-
-    read(fileUrl, cb) {
-
-        this.check(fileUrl, () => {
-            const reader = fs.createReadStream(fileUrl, { encoding: "utf-8" })
-            reader.on("data", (data) => { cb(data) })
-        })
-    }
-
-
-    write(fileUrl, data) {
-        this.check(fileUrl, (error) => {
-            if (error) {
-                fs.open(fileUrl,"w", (err) => {
-                    if (err) { console.log("err"); return }
-                    else {
-                        const writable = fs.createWriteStream(fileUrl, {  encoding: "utf-8" })
-                        writable.write(data)
-
-                    }
-                })
-            }
-            else {
-                const writable = fs.createWriteStream(fileUrl, {  encoding: "utf-8" })
-                writable.write(data)
-
-            }
-        })
-    }
-}
 
 const stylesPath = path.resolve(__dirname, "styles")
 
